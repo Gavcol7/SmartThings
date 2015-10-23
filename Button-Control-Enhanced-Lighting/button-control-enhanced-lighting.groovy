@@ -18,7 +18,7 @@
  */
 definition(
     name: "Button Controller - Enhanced Lighting",
-    namespace: "erocm1231",
+    namespace: "erocm123",
     author: "Eric Maycock (erocm123)",
     description: "Control lights with buttons like the Aeon Labs Minimote or Enerwave ZWN-SC7.",
     category: "Convenience",
@@ -32,11 +32,11 @@ preferences {
 	page(name: "configureButton2")
 	page(name: "configureButton3")
 	page(name: "configureButton4")
-    page(name: "configureButton5")
+    	page(name: "configureButton5")
 	page(name: "configureButton6")
 	page(name: "configureButton7")
 	page(name: "configureButton8")
-    page(name: "configureLight")
+    	page(name: "configureLight")
 
 	page(name: "timeIntervalInput", title: "Only during a certain time") {
 		section {
