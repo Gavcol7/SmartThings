@@ -2,13 +2,13 @@
  *  
  *	Button Controller - Enhanced Lighting
  *  
- *  Author: Eric Maycock (erocm123)
+ *  	Author: Eric Maycock (erocm123)
  *	email: erocmail@gmail.com
  *	Date: 2015-10-22
  *  
  *	This SmartApp allows you to, in great detail, control your lighting with button based 
  *	devices like the Aeon Labs Minimote or Enerwave ZWN-SC7. Want a button to turn one
- *  hue bulb red, one green, one blue, and one orange? This can do it. Want a single button to 
+ *  	hue bulb red, one green, one blue, and one orange? This can do it. Want a single button to 
  *	turn on your overhead lights and dim your lamps to 50%. This can do it. The combinations 
  *	are limitless.
  *   
@@ -63,7 +63,7 @@ def selectButton() {
 
 			input "modes", "mode", title: "Only when mode is", multiple: true, required: false
             
-            //input "numberOfButtons", "number", title: "Number of Buttons?", required: false, value: 8
+            		//input "numberOfButtons", "number", title: "Number of Buttons?", required: false, value: 8
 		}
 	}
 }
@@ -219,16 +219,16 @@ def buttonEvent(evt){
 				case ~/.*4.*/:
 					executeHandlers(4)
 					break
-                case ~/.*5.*/:
+                		case ~/.*5.*/:
 					executeHandlers(5)
 					break
-                case ~/.*6.*/:
+                		case ~/.*6.*/:
 					executeHandlers(6)
 					break
-                case ~/.*7.*/:
+                		case ~/.*7.*/:
 					executeHandlers(7)
 					break
-                case ~/.*8.*/:
+                		case ~/.*8.*/:
 					executeHandlers(8)
 					break
 			}
@@ -239,7 +239,7 @@ def buttonEvent(evt){
 }
 
 def executeHandlers(buttonNumber) {
-	log.debug "executeHandlers: $buttonNumber"
+    log.debug "executeHandlers: $buttonNumber"
     def lightsConfigured = settings["lights_${buttonNumber}"]
     if (lightsConfigured != null) {
         lightsConfigured.each {light ->
