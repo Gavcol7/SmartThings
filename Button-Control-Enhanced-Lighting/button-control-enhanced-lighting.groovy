@@ -5,6 +5,8 @@
  *	Author: Eric Maycock (erocm123)
  *	email: erocmail@gmail.com
  *	Date: 2015-10-22
+ * 
+ * 	2015-10-26: Added a "Random" option when choosing a color.
  *  
  *	This SmartApp allows you to, in great detail, control your lighting with button based 
  *	devices like the Aeon Labs Minimote or Enerwave ZWN-SC7. Want a button to turn one
@@ -325,9 +327,9 @@ def setLight(light, lightName, lightCapabilities, buttonNumber, lightId) {
                     hueColor = 100
                     break;
                     case "Random":
-					Random rand = new Random()
-					int max = 100
-					hueColor = rand.nextInt(max+1)
+		    Random rand = new Random()
+		    int max = 100
+		    hueColor = rand.nextInt(max+1)
                     break;
                 }
                 def colorValue = [hue: hueColor, saturation: saturation, level: level as Integer ?: 100]
