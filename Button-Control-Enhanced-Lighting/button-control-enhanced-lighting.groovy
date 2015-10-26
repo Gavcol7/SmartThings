@@ -2,7 +2,7 @@
  *  
  *	Button Controller - Enhanced Lighting
  *  
- *  	Author: Eric Maycock (erocm123)
+ *	Author: Eric Maycock (erocm123)
  *	email: erocmail@gmail.com
  *	Date: 2015-10-22
  *  
@@ -16,6 +16,9 @@
  *	5,6,7,8 when the buttons are pressed and held. This should be pretty self explanatory but
  *	holding 1 is equivalent to button 5, holding 2 is equivalent to button 6, and so on.
  */
+ 
+
+
 definition(
     name: "Button Controller - Enhanced Lighting",
     namespace: "erocm123",
@@ -32,11 +35,11 @@ preferences {
 	page(name: "configureButton2")
 	page(name: "configureButton3")
 	page(name: "configureButton4")
-    	page(name: "configureButton5")
+	page(name: "configureButton5")
 	page(name: "configureButton6")
 	page(name: "configureButton7")
 	page(name: "configureButton8")
-    	page(name: "configureLight")
+	page(name: "configureLight")
 
 	page(name: "timeIntervalInput", title: "Only during a certain time") {
 		section {
@@ -127,7 +130,7 @@ def configureLight(params) {
 					["White":"White - Concentrate"],
 					["Daylight":"Daylight - Energize"],
 					["Warm White":"Warm White - Relax"],
-					"Red","Green","Blue","Yellow","Orange","Purple","Pink"]
+					"Red","Green","Blue","Yellow","Orange","Purple","Pink","Random"]
 					input "lights_${params.buttonNumber}_${params.lightId}_lightLevel", "enum", title: "Light Level?", required: false, options: [[10:"10%"],[20:"20%"],[30:"30%"],[40:"40%"],[50:"50%"],[60:"60%"],[70:"70%"],[80:"80%"],[90:"90%"],[100:"100%"]]
 					break
             }
@@ -243,8 +246,6 @@ def executeHandlers(buttonNumber) {
     def lightsConfigured = settings["lights_${buttonNumber}"]
     if (lightsConfigured != null) {
         lightsConfigured.each {light ->
-            log.debug "${light.id}"
-            log.debug "${light.capabilities}" 
             setLight(light, "$light.name", "$light.capabilities", "$buttonNumber", "${light.id}")
         }
     }
@@ -262,7 +263,6 @@ def setLight(light, lightName, lightCapabilities, buttonNumber, lightId) {
     if ("$lightCapabilities".indexOf('Color Control') > 0) {
         switchType = "Color"
     }
-    log.debug "$switchType"
     
     if (settings["lights_${buttonNumber}_${lightId}_power"] != null)
     	power = settings["lights_${buttonNumber}_${lightId}_power"]
@@ -323,6 +323,11 @@ def setLight(light, lightName, lightCapabilities, buttonNumber, lightId) {
                     break;
                     case "Red":
                     hueColor = 100
+                    break;
+                    case "Random":
+					Random rand = new Random()
+					int max = 100
+					hueColor = rand.nextInt(max+1)
                     break;
                 }
                 def colorValue = [hue: hueColor, saturation: saturation, level: level as Integer ?: 100]
