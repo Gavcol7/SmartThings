@@ -102,7 +102,7 @@ def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cm
     def result = []
     result << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:2).format()
     result << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:2, commandClass:37, command:2).format()
-    result << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:3, commandClass:37, command:2).format()
+    //result << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:3, commandClass:37, command:2).format()
     response(delayBetween(result, 1000)) // returns the result of reponse()
 }
 
@@ -161,7 +161,7 @@ def refresh() {
 	def cmds = []
 	cmds << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:2).format()
     cmds << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:2, commandClass:37, command:2).format()
-    cmds << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:3, commandClass:37, command:2).format()
+    //cmds << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:3, commandClass:37, command:2).format()
 	delayBetween(cmds, 1000)
 }
 
@@ -180,9 +180,13 @@ def reset() {
 }
 
 def configure() {
-    delayBetween([
-    	zwave.configurationV1.configurationSet(parameterNumber:3, configurationValue: [3]).format()	// Set switch to report values for both Relay1 and Relay2
-    ])
+	// Commenting this out in case someone tries to use this on the Enerwave Dual Relay. The Philio should come with config parameter
+    // 3 set to 3 by default so it should be unecessary. Changing parameter 3 to 3 on the Enerwave will make it send its status
+    // reports to node 3 in the network. The Enerwave should have parameter 3 set to 1 though to have it send status updates
+    // to the SmartThings hub. By default this parameter is set to 0.
+    //delayBetween([
+    	//zwave.configurationV1.configurationSet(parameterNumber:3, configurationValue: [3]).format()	// Set switch to report values for both Relay1 and Relay2
+    //])
 }
 
 def on1() {
